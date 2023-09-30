@@ -1,11 +1,13 @@
 import sys
 import os
+import numpy as np
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
-
+from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 
 @dataclass
@@ -43,5 +45,14 @@ class DataIngestion:
             raise CustomException(e, sys)
         
 if __name__=="__main__":
+    seed_value = 42
+    np.random.seed(seed_value)
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    train, test, train_pricefactor, test_pricefactor = data_transformation.data_transformation_object(train_data, test_data)
+
+    model_trainer = ModelTrainer()
+
+    model_trainer.initiate_model_trainer(train, test, train_pricefactor, test_pricefactor)
