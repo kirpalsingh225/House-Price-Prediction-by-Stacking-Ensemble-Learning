@@ -6,11 +6,11 @@ from src.exception import CustomException
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, ExtraTreesRegressor
 from sklearn.linear_model import LinearRegression
 import pickle
-from sklearn.metrics import mean_absolute_error, r2_score, mean_absolute_percentage_error
+from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error
 
 
 class ModelTrainer:
-    def initiate_model_trainer(self, traindf, testdf, train_pfactor, test_pfactor):
+    def initiate_model_trainer(self, traindf, testdf):
         try:
             logging.info("creating models")
             rf_reg = RandomForestRegressor()

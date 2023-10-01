@@ -19,10 +19,6 @@ class DataTransformation:
             train = pd.read_csv(train_path)
             test = pd.read_csv(test_path)
 
-            logging.info("Dropping unnamed and image id feature")
-            train = train.drop(["Unnamed: 0", "image_id"], axis=1)
-            test = test.drop(["Unnamed: 0", "image_id"], axis=1)
-
             logging.info("taking numerical features for dataset")
             train = train[["n_citi", "bed", "bath", "sqft", "price", "img_f1", "img_f2", "img_f3", "img_f4", "img_f5"]]
             test = test[["n_citi", "bed", "bath", "sqft", "price", "img_f1", "img_f2", "img_f3", "img_f4", "img_f5"]]
@@ -70,11 +66,15 @@ class DataTransformation:
             test["bath"] = test["bath"]/bath_max_test
             test["sqft"] = test["sqft"]/sqft_max_test
             test["price"] = test["price"]/price_max_test
+            print(price_max_test)
 
             return (train, test, price_max_train, price_max_test)
 
         except Exception as e:
             raise CustomException(e, sys)
+        
+
+    
         
 
 
